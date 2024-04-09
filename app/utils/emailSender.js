@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const mail = process.env.MAILER_EMAIL;
 const password = process.env.MAILER_PASSWORD;
+const port = process.env.APP_PORT;
 
 async function emailSender(userEmail, token) {
   const transporter = nodemailer.createTransport({
@@ -17,7 +18,7 @@ async function emailSender(userEmail, token) {
     to: userEmail, // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
-    html: `<h2>Hello!</h2></br><a href="http://localhost:8000/api/v1/backend/auth/emailverify/${token}">Link</a>`, // html body
+    html: `<h2>Hello!</h2></br><a href="http://localhost:${port}/api/v1/backend/auth/emailverify/${token}">Link</a>`, // html body
   });
 }
 

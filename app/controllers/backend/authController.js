@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const privateKey = process.env.PRIVATE_KEY;
+const port = process.env.APP_PORT;
+const frontendUrl = process.env.FRONTEND_URL;
 
 const userModel = require("../../models/userModel.js");
 const emailSender = require("../../utils/emailSender.js");
@@ -34,7 +36,7 @@ const auth = {
     token = req.params.token;
     jwt.verify(token, privateKey, async function (err, decoded) {
       if (decoded) {
-        res.redirect("http://localhost:8000/api/v1/backend/auth/loginpage");
+        res.redirect(`http://localhost:${port}/api/v1/backend/auth/loginpage`);
 
         const mailVarify = await userModel.findOneAndUpdate(
           { email: decoded },
@@ -52,7 +54,7 @@ const auth = {
   },
 
   loginPage(req, res) {
-    res.redirect("http://localhost:5173");
+    res.redirect(frontendUrl);
   },
 
   async login(req, res) {

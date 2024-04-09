@@ -8,6 +8,7 @@ const cors = require("cors");
 
 const port = process.env.APP_PORT;
 const imageUrl = process.env.BASE_URL;
+const corsOrigin = process.env.FRONTEND_URL;
 const dbConnect = require("./app/database/database.js");
 const routes = require("./app/routes");
 const workSocket = require("./app/socket/workSocket");
@@ -19,7 +20,7 @@ dbConnect();
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: corsOrigin,
   },
 });
 
